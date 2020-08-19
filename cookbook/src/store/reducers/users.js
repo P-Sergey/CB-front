@@ -1,7 +1,10 @@
-import { SET_USERS, SET_LOADING, SET_ERROR } from '../actions/loadUsers';
+import { SET_USERS, SET_LOADING, SET_ERROR } from '../actions/users';
 
-const initialState = { users: [], loading: false, error: null };
-
+const initialState = {
+  users: [],
+  loading: false,
+  error: null,
+};
 const users = (state = initialState, action) => {
   switch (action.type) {
     case SET_USERS:
