@@ -6,8 +6,8 @@ export const getUsersApi = () => {
   return axios.get(URL);
 };
 
-export const createUserApi = (data) => {
-  return axios.post(URL, data);
+export const createUserApi = (user) => {
+  return axios.post(URL, user);
 };
 
 export const deleteUserApi = (id) => {

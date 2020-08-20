@@ -15,10 +15,12 @@ export const setLoading = (value) => ({
   payload: value,
 });
 
-export const setError = (value) => ({
-  type: SET_ERROR,
-  payload: value,
-});
+export const setError = (value) => {
+  return {
+    type: SET_ERROR,
+    payload: value,
+  };
+};
 
 export const getUsers = () => ({
   type: GET_USERS,

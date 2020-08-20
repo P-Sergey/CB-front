@@ -21,16 +21,21 @@ function* fetchUser() {
 
 function* fetchCreateUser(data) {
   try {
-    debugger;
-    yield call(createUserApi(data.payload));
+    yield call(() => {
+      createUserApi(data.payload);
+    });
+    yield fetchUser();
   } catch (error) {
     yield put(setError(error));
   }
 }
 
-function* fetchDeleteUser(id) {
+function* fetchDeleteUser(data) {
   try {
-    yield call(deleteUserApi(id.payload));
+    yield call(() => {
+      deleteUserApi(data.payload);
+    });
+    yield fetchUser();
   } catch (error) {
     yield put(setError(error));
   }

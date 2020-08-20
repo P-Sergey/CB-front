@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { createUser } from '../store/actions/users';
 
 class CreateUser extends React.Component {
   constructor(props) {
@@ -52,10 +50,4 @@ class CreateUser extends React.Component {
   }
 }
 
-const mapDispatchToProps = {
-  createUser,
-};
-
-const finalCreateUser = connect(null, mapDispatchToProps)(CreateUser);
-
-export default finalCreateUser;
+export default CreateUser;

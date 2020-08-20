@@ -1,8 +1,15 @@
 import React from 'react';
 import Error from './Error';
+import CreateUser from './CreateUser';
 import Loading from './Loading';
 import { connect } from 'react-redux';
-import { setLoading, getUsers, deleteUser } from '../store/actions/users';
+import {
+  setLoading,
+  getUsers,
+  deleteUser,
+  createUser,
+} from '../store/actions/users';
+import DeleteUser from './DeleteUser';
 
 class UsersList extends React.Component {
   constructor(props) {
@@ -13,24 +20,21 @@ class UsersList extends React.Component {
   }
   componentDidMount() {
     const { setLoading, getUsers } = this.props;
-
     setLoading(true);
     getUsers();
   }
 
-  deleteClick = () => {
-    const { deleteUser } = this.props;
-    deleteUser(this.state.userId);
-  };
-
   render() {
-    const { users, loading, error } = this.props;
+    const { users, loading, error, deleteUser, createUser } = this.props;
     if (loading) {
       return <Loading />;
     }
+
     if (error) {
       return <Error error={error} />;
     }
+
+    debugger;
     return (
       <div>
         <select
@@ -42,7 +46,8 @@ class UsersList extends React.Component {
             </option>
           ))}
         </select>
-        <button onClick={this.deleteClick}>Delete User</button>
+        <CreateUser createUser={createUser} />
+        <DeleteUser userId={this.state.userId} deleteUser={deleteUser} />
       </div>
     );
   }
@@ -53,11 +58,11 @@ const mapStateToProps = (state) => ({
   loading: state.loading,
   error: state.error,
 });
-
 const mapDispatchToProps = {
   setLoading,
   getUsers,
   deleteUser,
+  createUser,
 };
 
 const finalUsersList = connect(mapStateToProps, mapDispatchToProps)(UsersList);
