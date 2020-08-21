@@ -21,8 +21,8 @@ function* fetchUser() {
 
 function* fetchCreateUser(data) {
   try {
-    yield call(() => {
-      createUserApi(data.payload);
+    yield call(async () => {
+      await createUserApi(data.payload);
     });
     yield fetchUser();
   } catch (error) {
@@ -32,8 +32,8 @@ function* fetchCreateUser(data) {
 
 function* fetchDeleteUser(data) {
   try {
-    yield call(() => {
-      deleteUserApi(data.payload);
+    yield call(async () => {
+      await deleteUserApi(data.payload);
     });
     yield fetchUser();
   } catch (error) {

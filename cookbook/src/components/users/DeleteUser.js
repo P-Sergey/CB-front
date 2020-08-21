@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { deleteUser } from '../../store/actions/users';
 
 class DeleteUser extends React.Component {
   deleteClick = () => {
@@ -10,4 +12,9 @@ class DeleteUser extends React.Component {
   }
 }
 
-export default DeleteUser;
+const mapDispatchToProps = {
+  deleteUser,
+};
+
+const connectedDeleteUser = connect(null, mapDispatchToProps)(DeleteUser);
+export default connectedDeleteUser;

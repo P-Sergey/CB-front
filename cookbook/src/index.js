@@ -1,22 +1,24 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import rootReduser from './store/reducers/users';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import rootReducer from './store/reducers/';
 import createSagaMiddleware from 'redux-saga';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { createStore, applyMiddleware } from 'redux';
 import { getUsersWatcher } from './store/sagas/usersSaga';
+import { getRecipesWatcher } from './store/sagas/recipesSaga';
+import * as serviceWorker from './serviceWorker';
 import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
-  rootReduser,
+  rootReducer,
   composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
 
 sagaMiddleware.run(getUsersWatcher);
+sagaMiddleware.run(getRecipesWatcher);
 
 render(
   <Provider store={store}>

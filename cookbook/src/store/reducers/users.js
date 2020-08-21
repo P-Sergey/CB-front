@@ -2,8 +2,8 @@ import { SET_USERS, SET_LOADING, SET_ERROR } from '../actions/users';
 
 const initialState = {
   users: [],
-  loading: false,
-  error: null,
+  usersLoading: false,
+  usersError: null,
 };
 const users = (state = initialState, action) => {
   switch (action.type) {
@@ -11,10 +11,10 @@ const users = (state = initialState, action) => {
       return { ...state, users: action.payload };
 
     case SET_LOADING:
-      return { ...state, loading: action.payload };
+      return { ...state, usersLoading: action.payload };
 
     case SET_ERROR:
-      return { ...state, error: action.payload };
+      return { ...state, usersError: action.payload };
 
     default:
       return state;
