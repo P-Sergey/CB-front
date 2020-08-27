@@ -11,6 +11,10 @@ export const createUserApi = (user) => {
   return axios.post(usersURL, user);
 };
 
+export const signInUserApi = (signInData) => {
+  return axios.post(`${usersURL}/signIn`, signInData);
+};
+
 export const deleteUserApi = (id) => {
   return axios.delete(`${usersURL}/${id}`);
 };

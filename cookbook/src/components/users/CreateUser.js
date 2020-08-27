@@ -9,17 +9,18 @@ class CreateUser extends React.Component {
       name: '',
       email: '',
       password: '',
-      token: '',
     };
   }
 
   createClick = () => {
-    const { createUser } = this.props;
+    const { createUser, closeSignUp } = this.props;
     createUser(this.state);
+    closeSignUp();
   };
 
   render() {
-    const { name, email, password, token } = this.state;
+    const { name, email, password } = this.state;
+    const { closeSignUp } = this.props;
     return (
       <div>
         <div>
@@ -45,14 +46,8 @@ class CreateUser extends React.Component {
             }
           />{' '}
         </div>
-        <div>
-          <input
-            value={token}
-            placeholder='token'
-            onChange={(event) => this.setState({ token: event.target.value })}
-          />
-        </div>
         <button onClick={this.createClick}>Create User</button>
+        <button onClick={closeSignUp}>Close</button>
       </div>
     );
   }

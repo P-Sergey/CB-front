@@ -1,5 +1,5 @@
-export const SET_LOADING = 'SET_LOADING';
-export const SET_ERROR = 'SET_ERROR';
+export const SET_RECIPES_LOADING = 'SET_RECIPES_LOADING';
+export const SET_RECIPES_ERROR = 'SET_RECIPES_ERROR';
 export const GET_RECIPES = 'GET_RECIPES';
 export const SET_RECIPES = 'SET_RECIPES';
 export const CREATE_RECIPE = 'CREATE_RECIPE';
@@ -11,13 +11,13 @@ export const setRecipes = (recipes) => ({
 });
 
 export const setLoading = (value) => ({
-  type: SET_LOADING,
+  type: SET_RECIPES_LOADING,
   payload: value,
 });
 
 export const setError = (value) => {
   return {
-    type: SET_ERROR,
+    type: SET_RECIPES_ERROR,
     payload: value,
   };
 };

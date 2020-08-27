@@ -1,4 +1,8 @@
-import { SET_RECIPES, SET_LOADING, SET_ERROR } from '../actions/recipes';
+import {
+  SET_RECIPES,
+  SET_RECIPES_LOADING,
+  SET_RECIPES_ERROR,
+} from '../actions/recipes';
 
 const initialState = {
   recipes: [],
@@ -10,10 +14,10 @@ const recipes = (state = initialState, action) => {
     case SET_RECIPES:
       return { ...state, recipes: action.payload };
 
-    case SET_LOADING:
+    case SET_RECIPES_LOADING:
       return { ...state, recipesLoading: action.payload };
 
-    case SET_ERROR:
+    case SET_RECIPES_ERROR:
       return { ...state, recipesError: action.payload };
 
     default:

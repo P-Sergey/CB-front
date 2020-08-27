@@ -1,5 +1,10 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { getUsersApi, createUserApi, deleteUserApi } from '../../api/api';
+import {
+  getUsersApi,
+  createUserApi,
+  deleteUserApi,
+  signInUserApi,
+} from '../../api/api';
 import {
   setUsers,
   setError,
@@ -7,6 +12,7 @@ import {
   GET_USERS,
   CREATE_USER,
   DELETE_USER,
+  SIGN_IN_USER,
 } from '../actions/users';
 
 function* fetchUser() {
@@ -30,6 +36,17 @@ function* fetchCreateUser(data) {
   }
 }
 
+function* fetchSignInUser(signInData) {
+  try {
+    yield call(async () => {
+      await signInUserApi(signInData.payload);
+    });
+    yield fetchUser();
+  } catch (error) {
+    yield put(setError(error));
+  }
+}
+
 function* fetchDeleteUser(data) {
   try {
     yield call(async () => {
@@ -44,5 +61,6 @@ function* fetchDeleteUser(data) {
 export function* getUsersWatcher() {
   yield takeEvery(GET_USERS, fetchUser);
   yield takeEvery(CREATE_USER, fetchCreateUser);
+  yield takeEvery(SIGN_IN_USER, fetchSignInUser);
   yield takeEvery(DELETE_USER, fetchDeleteUser);
 }

@@ -4,13 +4,17 @@ import CreateUser from './CreateUser';
 import Loading from '../Loading';
 import { connect } from 'react-redux';
 import { setLoading, getUsers } from '../../store/actions/users';
-import DeleteUser from './DeleteUser';
+import SignIn from './SignIn';
 
 class UsersList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       userId: '',
+      signUpVisible: false,
+      signInVisible: false,
+      signUpButton: true,
+      signInButton: true,
     };
   }
   componentDidMount() {
@@ -19,40 +23,63 @@ class UsersList extends React.Component {
     getUsers();
   }
 
-  getProfile = async () => {
-    const { users } = this.props;
-    const result = await users.find(
-      (user) => user.id === Number(this.state.userId)
-    );
-    console.log(result);
+  showSignUp = () => {
+    this.setState({ signUpVisible: true });
+    this.setState({ signInButton: false });
+  };
+
+  closeSignUp = () => {
+    this.setState({ signUpVisible: false });
+    this.setState({ signInButton: true });
+  };
+
+  showSignIn = () => {
+    this.setState({ signInVisible: true });
+    this.setState({ signUpButton: false });
+  };
+
+  closeSignIn = () => {
+    this.setState({ signInVisible: false });
+    this.setState({ signUpButton: true });
   };
 
   render() {
-    const { users, loading, error } = this.props;
-    if (loading) {
+    const { users, usersLoading, usersError } = this.props.users;
+
+    if (usersLoading) {
       return <Loading />;
     }
 
-    if (error) {
-      return <Error error={error} />;
+    if (usersError) {
+      return <Error error={usersError} />;
     }
-    console.log(users);
 
+    const {
+      signUpVisible,
+      signInVisible,
+      signUpButton,
+      signInButton,
+    } = this.state;
     return (
       <div>
-        <select
-          onChange={(event) => this.setState({ userId: event.target.value })}
-        >
-          {/* {users.map((user) => (
-            <option key={user.id} value={user.id}>
-              {user.name}
-            </option>
-          ))} */}
-        </select>
-        <CreateUser />
-        <DeleteUser userId={this.state.userId} />
+        {(signUpVisible && <CreateUser closeSignUp={this.closeSignUp} />) ||
+          (signUpButton && <button onClick={this.showSignUp}>Sign Up</button>)}
 
-        <button onClick={this.getProfile}>Profile</button>
+        {(signInVisible && <SignIn closeSignIn={this.closeSignIn} />) ||
+          (signInButton && <button onClick={this.showSignIn}>Sign In</button>)}
+
+        <div>
+          <select
+            onChange={(event) => this.setState({ userId: event.target.value })}
+          >
+            {users.map((user) => (
+              <option key={user.id} value={user.id}>
+                {user.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        {/* <DeleteUser userId={this.state.userId} /> */}
       </div>
     );
   }

@@ -19,38 +19,37 @@ class RecipesList extends React.Component {
     getRecipes();
   }
 
-  getProfile = async () => {
-    const { recipes } = this.props;
-    const result = await recipes.find(
-      (recipe) => recipe.id === Number(this.state.recipeId)
-    );
-    console.log(result);
-  };
-
   render() {
-    const { recipes, loading, error } = this.props;
-    if (loading) {
+    const { recipes, recipesLoading, recipesError } = this.props.recipes;
+    if (recipesLoading) {
       return <Loading />;
     }
 
-    if (error) {
-      return <Error error={error} />;
+    if (recipesError) {
+      return <Error error={recipesError} />;
     }
-    console.log(recipes);
+    const getProfile = () => {
+      const result = recipes.find(
+        (recipe) => recipe.id === Number(this.state.recipeId)
+      );
+      console.log(result);
+    };
 
     return (
       <div>
-        <select>
-          {/* {recipes.map((recipe) => (
+        <select
+          onChange={(event) => this.setState({ recipeId: event.target.value })}
+        >
+          {recipes.map((recipe) => (
             <option key={recipe.id} value={recipe.id}>
               {recipe.name}
             </option>
-          ))} */}
+          ))}
         </select>
         <CreateRecipe />
         <DeleteRecipe recipeId={this.state.recipeId} />
 
-        <button onClick={this.getProfile}>Profile</button>
+        <button onClick={getProfile}>Profile</button>
       </div>
     );
   }
