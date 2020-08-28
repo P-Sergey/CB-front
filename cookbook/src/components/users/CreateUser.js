@@ -46,7 +46,7 @@ class CreateUser extends React.Component {
             }
           />{' '}
         </div>
-        <button onClick={this.createClick}>Create User</button>
+        <button onClick={this.createClick}>Submit</button>
         <button onClick={closeSignUp}>Close</button>
       </div>
     );

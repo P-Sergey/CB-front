@@ -1,32 +1,36 @@
 import axios from 'axios';
 
-const usersURL = 'http://localhost:9000/users';
-const recipesURL = 'http://localhost:9000/recipes';
+const token = localStorage.getItem('userToken');
+
+const instance = axios.create({
+  baseURL: 'http://localhost:9000',
+  headers: { Authorization: `Bearer ${token}` },
+});
 
 export const getUsersApi = () => {
-  return axios.get(usersURL);
+  return instance.get('/users');
 };
 
 export const createUserApi = (user) => {
-  return axios.post(usersURL, user);
+  return instance.post('/users', user);
 };
 
 export const signInUserApi = (signInData) => {
-  return axios.post(`${usersURL}/signIn`, signInData);
+  return instance.post('/users/signIn', signInData);
 };
 
 export const deleteUserApi = (id) => {
-  return axios.delete(`${usersURL}/${id}`);
+  return instance.delete(`/users/${id}`);
 };
 
 export const getRecipesApi = () => {
-  return axios.get(recipesURL);
+  return instance.get('/recipes');
 };
 
-export const createRecipeApi = (user) => {
-  return axios.post(recipesURL, user);
+export const createRecipeApi = (recipe) => {
+  return instance.post('/recipes', recipe);
 };
 
 export const deleteRecipeApi = (id) => {
-  return axios.delete(`${recipesURL}/${id}`);
+  return instance.delete(`/recipes/${id}`);
 };

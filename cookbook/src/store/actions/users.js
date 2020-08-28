@@ -5,6 +5,7 @@ export const SET_USERS = 'SET_USERS';
 export const CREATE_USER = 'CREATE_USER';
 export const SIGN_IN_USER = 'SIGN_IN_USER';
 export const DELETE_USER = 'DELETE_USER';
+export const GET_TOKEN = 'GET_TOKEN';
 
 export const setUsers = (users) => ({
   type: SET_USERS,
@@ -40,4 +41,9 @@ export const signInUser = (signInData) => ({
 export const deleteUser = (id) => ({
   type: DELETE_USER,
   payload: id,
+});
+
+export const getToken = (token) => ({
+  type: GET_TOKEN,
+  payload: token,
 });

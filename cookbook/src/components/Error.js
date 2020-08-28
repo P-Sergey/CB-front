@@ -3,6 +3,7 @@ import React from 'react';
 
 const Error = (props) => {
   const { error } = props;
+  console.log(error);
   return (
     <div>
       {/* <img src={errorImg} alt='Error' className='error' /> */}

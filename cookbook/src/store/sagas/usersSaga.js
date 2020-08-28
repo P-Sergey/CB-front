@@ -13,6 +13,7 @@ import {
   CREATE_USER,
   DELETE_USER,
   SIGN_IN_USER,
+  getToken,
 } from '../actions/users';
 
 function* fetchUser() {
@@ -38,10 +39,11 @@ function* fetchCreateUser(data) {
 
 function* fetchSignInUser(signInData) {
   try {
-    yield call(async () => {
-      await signInUserApi(signInData.payload);
+    const token = yield call(() => {
+      return signInUserApi(signInData.payload);
     });
-    yield fetchUser();
+    localStorage.setItem('userToken', `${token.data}`);
+    yield put(getToken(token.data));
   } catch (error) {
     yield put(setError(error));
   }

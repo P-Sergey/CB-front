@@ -5,6 +5,7 @@ import Loading from '../Loading';
 import { connect } from 'react-redux';
 import { setLoading, getUsers } from '../../store/actions/users';
 import SignIn from './SignIn';
+import DeleteUser from './DeleteUser';
 
 class UsersList extends React.Component {
   constructor(props) {
@@ -43,6 +44,13 @@ class UsersList extends React.Component {
     this.setState({ signUpButton: true });
   };
 
+  getStorage = () => {
+    const token = localStorage.getItem('userToken');
+    const tokenParts = token.split('.');
+    const currentUser = JSON.parse(atob(tokenParts[1]));
+    console.log(currentUser);
+  };
+
   render() {
     const { users, usersLoading, usersError } = this.props.users;
 
@@ -79,7 +87,8 @@ class UsersList extends React.Component {
             ))}
           </select>
         </div>
-        {/* <DeleteUser userId={this.state.userId} /> */}
+        <DeleteUser userId={this.state.userId} />
+        <button onClick={this.getStorage}>Storage</button>
       </div>
     );
   }
@@ -89,6 +98,7 @@ const mapStateToProps = (state) => ({
   users: state.users,
   loading: state.usersLoading,
   error: state.usersError,
+  token: state.token,
 });
 
 const mapDispatchToProps = {

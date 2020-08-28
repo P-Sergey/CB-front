@@ -2,12 +2,15 @@ import {
   SET_USERS,
   SET_USERS_LOADING,
   SET_USERS_ERROR,
+  GET_TOKEN,
 } from '../actions/users';
 
 const initialState = {
   users: [],
+  currentUser: null,
   usersLoading: false,
   usersError: null,
+  token: null,
 };
 const users = (state = initialState, action) => {
   switch (action.type) {
@@ -19,6 +22,9 @@ const users = (state = initialState, action) => {
 
     case SET_USERS_ERROR:
       return { ...state, usersError: action.payload };
+
+    case GET_TOKEN:
+      return { ...state, token: action.payload };
 
     default:
       return state;
