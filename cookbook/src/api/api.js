@@ -7,9 +7,7 @@ const instance = axios.create({
   headers: { Authorization: `Bearer ${token}` },
 });
 
-export const getUsersApi = () => {
-  return instance.get('/users');
-};
+export const getUsersApi = () => instance.get('/users');
 
 export const createUserApi = (user) => {
   return instance.post('/users', user);

@@ -14,8 +14,6 @@ class UsersList extends React.Component {
       userId: '',
       signUpVisible: false,
       signInVisible: false,
-      signUpButton: true,
-      signInButton: true,
     };
   }
   componentDidMount() {
@@ -26,22 +24,18 @@ class UsersList extends React.Component {
 
   showSignUp = () => {
     this.setState({ signUpVisible: true });
-    this.setState({ signInButton: false });
   };
 
   closeSignUp = () => {
     this.setState({ signUpVisible: false });
-    this.setState({ signInButton: true });
   };
 
   showSignIn = () => {
     this.setState({ signInVisible: true });
-    this.setState({ signUpButton: false });
   };
 
   closeSignIn = () => {
     this.setState({ signInVisible: false });
-    this.setState({ signUpButton: true });
   };
 
   getStorage = () => {
@@ -62,19 +56,20 @@ class UsersList extends React.Component {
       return <Error error={usersError} />;
     }
 
-    const {
-      signUpVisible,
-      signInVisible,
-      signUpButton,
-      signInButton,
-    } = this.state;
+    const { signUpVisible, signInVisible } = this.state;
     return (
       <div>
-        {(signUpVisible && <CreateUser closeSignUp={this.closeSignUp} />) ||
-          (signUpButton && <button onClick={this.showSignUp}>Sign Up</button>)}
+        {signUpVisible ? (
+          <CreateUser closeSignUp={this.closeSignUp} />
+        ) : (
+          <button onClick={this.showSignUp}>Sign Up</button>
+        )}
 
-        {(signInVisible && <SignIn closeSignIn={this.closeSignIn} />) ||
-          (signInButton && <button onClick={this.showSignIn}>Sign In</button>)}
+        {signInVisible ? (
+          <SignIn closeSignIn={this.closeSignIn} />
+        ) : (
+          <button onClick={this.showSignIn}>Sign In</button>
+        )}
 
         <div>
           <select

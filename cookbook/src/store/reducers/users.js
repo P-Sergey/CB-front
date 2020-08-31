@@ -2,7 +2,7 @@ import {
   SET_USERS,
   SET_USERS_LOADING,
   SET_USERS_ERROR,
-  GET_TOKEN,
+  SET_TOKEN,
 } from '../actions/users';
 
 const initialState = {
@@ -23,7 +23,7 @@ const users = (state = initialState, action) => {
     case SET_USERS_ERROR:
       return { ...state, usersError: action.payload };
 
-    case GET_TOKEN:
+    case SET_TOKEN:
       return { ...state, token: action.payload };
 
     default:

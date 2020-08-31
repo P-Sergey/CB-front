@@ -13,7 +13,7 @@ import {
   CREATE_USER,
   DELETE_USER,
   SIGN_IN_USER,
-  getToken,
+  setToken,
 } from '../actions/users';
 
 function* fetchUser() {
@@ -43,7 +43,7 @@ function* fetchSignInUser(signInData) {
       return signInUserApi(signInData.payload);
     });
     localStorage.setItem('userToken', `${token.data}`);
-    yield put(getToken(token.data));
+    yield put(setToken(token.data));
   } catch (error) {
     yield put(setError(error));
   }
